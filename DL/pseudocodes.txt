@@ -1,0 +1,274 @@
+O = [I - k + 2P / s] + 1
+
+===== LeNet =====
+
+class LeNet:
+__init__:
+    conv1 = Conv2d(1, 6, k=5)
+    conv2 = Conv2d(6, 16, k=5)
+    pool  = MaxPool2d(2)
+    relu  = ReLU(inplace=True)
+    fc1   = Linear(256, 120)
+    fc2   = Linear(120, 84)
+    fc3   = Linear(84, 10)
+
+forward(x):                   # x: [B,1,28,28]
+    x = relu(conv1(x))        # [B,6,24,24]
+    x = pool(x)               # [B,6,12,12]
+    x = relu(conv2(x))        # [B,16,8,8]
+    x = pool(x)               # [B,16,4,4]
+    x = x.flatten(1)          # [B,256]
+    x = relu(fc1(x))          # [B,120]
+    x = relu(fc2(x))          # [B,84]
+    x = fc3(x)                # [B,10]
+    return x
+
+
+===== VGG =====
+
+class VGG:
+__init__:
+    conv1 = Conv2d(3, 32, k=3, p=1)
+    conv2 = Conv2d(32, 64, k=3, p=1)
+    bn1 = BatchNorm2d(32)
+    bn2 = BatchNorm2d(64)
+    relu = ReLU()
+    pool = MaxPool2d(2)
+    fc1 = Linear(64 * 8 * 8, 256)
+    fc2 = Linear(256, 10)
+
+forward(x):
+    x = relu(bn1(conv1(x)))
+    x = pool(x)
+    x = relu(bn2(conv2(x)))
+    x = pool(x)
+    x = x.flatten(1)
+    x = relu(fc1(x))
+    x = fc2(x)
+
+    return x
+
+
+===== ResNet =====
+
+class ResBlock(in_chan, out_chan): 
+__init__:
+    conv1 = Conv2d(in_chan, out_chan, k=3, p=1)
+    conv2 = Conv2d(out_chan, out_chan, k=3, p=1)
+    bn1 = BatchNorm2d(out_chan)
+    bn2 = BatchNorm2d(out_chan)
+    relu = ReLU()
+
+    flag = in_chan == out_chan
+
+    proj = in_chan == out_chan ? 
+        Identity() :
+        Conv2d(in_chan, out_chan, k=1)
+
+forward(x):
+    y = x
+    x = relu(bn1(conv1(x)))
+    x = bn2(conv2(x))
+    y = proj(y)
+    x = relu(x + y)
+    return x
+
+
+class ResNet(n_classes):
+__init__:
+    conv1 = Conv2d(3, 64, k=7, s=2)
+    bn = BatchNorm2d(64)
+    relu = ReLU()
+
+    rb1 = ResBlock(64, 64)
+    rb2 = ResBlock(64, 128)
+
+    pool = AdaptiveAvgPool2d((1,1))
+
+    fc = Linear(128, n_classes)
+
+forward(x):
+    x = relu(bn(conv1(x)))
+    x = rb1(x)
+    x = rb2(x)
+    x = pool(x)
+    x = x.flatten(1)
+    x = fc(x)
+    return x
+
+
+===== ResNeXt =====
+
+class ResNeXtBlock(in_chan, out_chan, cardinality): 
+__init__:
+    if out_chan % cardinality != 0: error
+
+    conv1 = Conv2d(in_chan, out_chan, k=3, p=1, g=cardinality)
+    conv2 = Conv2d(out_chan, out_chan, k=3, p=1, g=cardinality)
+    bn1 = BatchNorm2d(out_chan)
+    bn2 = BatchNorm2d(out_chan)
+    relu = ReLU()
+
+    flag = in_chan == out_chan
+
+    proj = in_chan == out_chan ? 
+        Identity() :
+        Conv2d(in_chan, out_chan, k=1)
+
+forward(x):
+    y = x
+    x = relu(bn1(conv1(x)))
+    x = bn2(conv2(x))
+    y = proj(y)
+    x = relu(x + y)
+    return x
+
+
+===== U-Net =====
+
+class ConvBlock(in_chan, out_chan):
+__init__:
+    conv1 = Conv2d(in_chan, out_chan, k=3, p=1)
+    conv2 = Conv2d(out_chan, out_chan, k=3, p=1)
+    bn1 = BatchNorm2d(out_chan)
+    bn2 = BatchNorm2d(out_chan)
+    relu = ReLU()
+
+forward(x):
+    x = relu(bn1(conv1(x)))
+    x = relu(bn2(conv2(x)))
+    return x
+
+
+class UpBlock(in_chan, out_chan):
+__init__:
+    up = ConvTranspose2d(in_chan, out_chan, k=2, s=2)
+    conv = ConvBlock(out_chan*2, out_chan) // *2 por el cat
+
+forward(x, x_enc):
+    x = up(x)
+    x = torch.cat([x_enc, x], dim=1)
+    x = conv(x)
+    return x
+
+
+class UNet(n_classes):
+__init__:
+    en1 = ConvBlock(3, 64)
+    en2 = ConvBlock(64, 128)
+    en3 = ConvBlock(128, 256)
+    pool = MaxPool2d(2)
+    bottleneck = ConvBlock(256, 512)
+    dec1 = UpBlock(512, 256)
+    dec2 = UpBlock(256, 128)
+    dec3 = UpBlock(128, 64)
+    out = Conv2d(64, n_classes, k=1)
+
+forward(x):                        # [B, 3, H, W]
+    e1 = enc1(x)                   # [B,  64, H,   W  ]
+    e2 = enc2(pool(e1))            # [B, 128, H/2, W/2]
+    e3 = enc3(pool(e2))            # [B, 256, H/4, W/4]
+    x  = bottleneck(pool(e3))      # [B, 512, H/4, W/4]
+    x  = dec1(x, e3)               # [B, 256, H/4, W/4]
+    x  = dec2(x, e2)               # [B, 128, H/2, W/2]
+    x  = dec3(x, e1)               # [B,  64, H,   W  ]
+    x  = out(x)                    # [B, n_classes, H, W]
+    return x
+
+
+==== EfficientNet ====
+
+class SqueezeExitation(in_chan, se_ratio=0.25):
+__init__:
+    n_hid = in_chan * se_ratio
+    pool = AdaptiveAvgPool2d((1,1))
+    conv1 = Conv2d(in_chan, n_hid, k=1)
+    relu = ReLU()
+    conv2 = Conv2d(n_hid, in_chan, k=1)
+    sig = Sigmoid()
+
+forward(x):
+    attn = pool(x)
+    attn = relu(conv1(attn))
+    attn = sig(conv2(attn))
+    return x * attn
+
+
+class MBConv(in_chan, out_chan, stride, expand_ratio, kernel=3):
+__init__:
+    n_hid = in_chan * expand_ratio
+    use_residual = (in_chan == out_chan and stride == 1)
+    pad = kernel // 2
+
+    conv1 = Conv2d(in_chan, n_hid, k=1)
+    bn1 = BatchNorm2d(n_hid)
+    deepthwise = Conv2d(n_hid, n_hid, k=kernel, p=pad, s=stride, g=n_hid)
+    bn2 = BatchNorm2d(n_hid)
+    relu = ReLU6()
+    SE = SqueezeExitation(n_hid)
+    conv2 = Conv2d(n_hid, out_chan, k=1)
+    bn3 = BatchNorm2d(out_chan)
+
+forward(x):
+    y = relu(bn1(conv1(x)))
+    y = relu(bn2(deepthwise(y)))
+    y = SE(y)
+    y = bn3(conv2(y))
+    if use_residual: return x + y
+    else: return y
+
+
+class EfficientNetB0(n_classes):
+__init__:
+    conv1 = Conv2d(3, 32, k=3, s=2)
+    bn1 = BatchNorm2d(32)
+    relu = ReLU6()
+
+    mb1 = MBConv(32, 16, stride=1, expand_ratio=1)
+
+    mb2 = Sequential(
+        MBConv(16, 24, stride=2, expand_ratio=6),
+        MBConv(24, 24, stride=1, expand_ratio=6)
+    )
+
+    mb3 = Sequential(
+        MBConv(24, 40, stride=2, expand_ratio=6),
+        MBConv(40, 40, stride=1, expand_ratio=6)
+    )
+
+    mb4 = Sequential(
+        MBConv(40, 80, stride=2, expand_ratio=6),
+        MBConv(80, 80, stride=1, expand_ratio=6),
+        MBConv(80, 80, stride=1, expand_ratio=6)
+    )
+
+    mb5 = Sequential(
+        MBConv(80, 112, stride=1, expand_ratio=6),
+        MBConv(112, 112, stride=1, expand_ratio=6),
+        MBConv(112, 112, stride=1, expand_ratio=6)
+    )
+
+    mb6 = Sequential(
+        MBConv(112, 192, stride=2, expand_ratio=6),
+        MBConv(192, 192, stride=1, expand_ratio=6),
+        MBConv(192, 192, stride=1, expand_ratio=6),
+        MBConv(192, 192, stride=1, expand_ratio=6)
+    )
+
+    mb7 = MBConv(192, 320, stride=1, expand_ratio=6)
+
+    mbconv = Sequential(mb1, mb2, mb3, mb4, mb5, mb6, mb7)
+
+    conv2 = Conv2d(320, 1280, k=1)
+    bn2 = BatchNorm2d(1280)
+    pool = AdaptiveAvgPool2d((1,1))
+    fc = Linear(1280, n_classes)
+
+forward(x):
+    x = relu(bn1(conv1(x)))
+    x = mbconv(x)
+    x = relu(bn2(conv2(x)))
+    x = pool(x)
+    x = x.flatten(1)
+    x = fc(x)
+    return x

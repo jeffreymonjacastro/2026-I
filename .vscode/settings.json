@@ -1,0 +1,5 @@
+{
+    "python.linting.pylintArgs": [
+        "--ignore-patterns=DL/S6/Session5.0_Transformers.ipynb"
+    ]
+}
