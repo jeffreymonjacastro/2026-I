@@ -1,0 +1,25 @@
+{
+  "method": "Method 1 (Baseline)",
+  "detector": "yolo11m.pt",
+  "tracker": "SORT",
+  "detector_params": {
+    "conf": 0.25,
+    "iou_nms": 0.45,
+    "imgsz": 1280
+  },
+  "tracker_params": {
+    "max_age": 30,
+    "min_hits": 3,
+    "iou_threshold": 0.3
+  },
+  "classes": {
+    "1": "pedestrian",
+    "4": "car"
+  },
+  "results": {
+    "MOTA": 0.10578435188789415,
+    "IDF1": 0.4266483147576205,
+    "IDS": 495,
+    "FPS": 16.01291682856685
+  }
+}
