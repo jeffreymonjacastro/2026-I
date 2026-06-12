@@ -1,0 +1,164 @@
+{
+  "input_root": "/kaggle/input",
+  "dataset_slug": "plantdisease",
+  "scan_root": "/kaggle/input/datasets/emmarex/plantdisease/PlantVillage",
+  "output_dir": "/kaggle/working",
+  "image_file_count": 20638,
+  "scored_image_count": 20638,
+  "max_per_category": 300,
+  "allow_category_overlap": true,
+  "categories": {
+    "healthy_leaves": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___healthy": 100,
+        "Potato___healthy": 100,
+        "Tomato_healthy": 100
+      },
+      "contact_sheet": "review_contact_sheets/healthy_leaves.jpg"
+    },
+    "small_diseased_regions": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___Bacterial_spot": 25,
+        "Potato___Early_blight": 25,
+        "Potato___Late_blight": 25,
+        "Tomato_Bacterial_spot": 25,
+        "Tomato_Early_blight": 25,
+        "Tomato_Late_blight": 25,
+        "Tomato_Leaf_Mold": 25,
+        "Tomato_Septoria_leaf_spot": 25,
+        "Tomato_Spider_mites_Two_spotted_spider_mite": 25,
+        "Tomato__Target_Spot": 25,
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": 25,
+        "Tomato__Tomato_mosaic_virus": 25
+      },
+      "contact_sheet": "review_contact_sheets/small_diseased_regions.jpg"
+    },
+    "large_diseased_regions": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___Bacterial_spot": 27,
+        "Potato___Early_blight": 4,
+        "Potato___Late_blight": 27,
+        "Tomato_Bacterial_spot": 27,
+        "Tomato_Early_blight": 27,
+        "Tomato_Late_blight": 27,
+        "Tomato_Leaf_Mold": 27,
+        "Tomato_Septoria_leaf_spot": 27,
+        "Tomato_Spider_mites_Two_spotted_spider_mite": 27,
+        "Tomato__Target_Spot": 27,
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": 27,
+        "Tomato__Tomato_mosaic_virus": 26
+      },
+      "contact_sheet": "review_contact_sheets/large_diseased_regions.jpg"
+    },
+    "simple_backgrounds": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___Bacterial_spot": 20,
+        "Pepper__bell___healthy": 20,
+        "Potato___Early_blight": 20,
+        "Potato___Late_blight": 20,
+        "Potato___healthy": 20,
+        "Tomato_Bacterial_spot": 20,
+        "Tomato_Early_blight": 20,
+        "Tomato_Late_blight": 20,
+        "Tomato_Leaf_Mold": 20,
+        "Tomato_Septoria_leaf_spot": 20,
+        "Tomato_Spider_mites_Two_spotted_spider_mite": 20,
+        "Tomato__Target_Spot": 20,
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": 20,
+        "Tomato__Tomato_mosaic_virus": 20,
+        "Tomato_healthy": 20
+      },
+      "contact_sheet": "review_contact_sheets/simple_backgrounds.jpg"
+    },
+    "complex_backgrounds": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___Bacterial_spot": 20,
+        "Pepper__bell___healthy": 20,
+        "Potato___Early_blight": 20,
+        "Potato___Late_blight": 20,
+        "Potato___healthy": 20,
+        "Tomato_Bacterial_spot": 20,
+        "Tomato_Early_blight": 20,
+        "Tomato_Late_blight": 20,
+        "Tomato_Leaf_Mold": 20,
+        "Tomato_Septoria_leaf_spot": 20,
+        "Tomato_Spider_mites_Two_spotted_spider_mite": 20,
+        "Tomato__Target_Spot": 20,
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": 20,
+        "Tomato__Tomato_mosaic_virus": 20,
+        "Tomato_healthy": 20
+      },
+      "contact_sheet": "review_contact_sheets/complex_backgrounds.jpg"
+    },
+    "multiple_leaves": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___Bacterial_spot": 5,
+        "Pepper__bell___healthy": 3,
+        "Potato___Early_blight": 7,
+        "Potato___Late_blight": 7,
+        "Tomato_Bacterial_spot": 1,
+        "Tomato_Early_blight": 11,
+        "Tomato_Late_blight": 71,
+        "Tomato_Leaf_Mold": 31,
+        "Tomato_Septoria_leaf_spot": 71,
+        "Tomato_Spider_mites_Two_spotted_spider_mite": 22,
+        "Tomato__Target_Spot": 2,
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": 23,
+        "Tomato__Tomato_mosaic_virus": 31,
+        "Tomato_healthy": 15
+      },
+      "contact_sheet": "review_contact_sheets/multiple_leaves.jpg"
+    },
+    "partial_occlusions": {
+      "selected_count": 300,
+      "max_requested": 300,
+      "weak_category": false,
+      "class_counts": {
+        "Pepper__bell___Bacterial_spot": 20,
+        "Pepper__bell___healthy": 20,
+        "Potato___Early_blight": 20,
+        "Potato___Late_blight": 20,
+        "Potato___healthy": 20,
+        "Tomato_Bacterial_spot": 20,
+        "Tomato_Early_blight": 20,
+        "Tomato_Late_blight": 20,
+        "Tomato_Leaf_Mold": 20,
+        "Tomato_Septoria_leaf_spot": 20,
+        "Tomato_Spider_mites_Two_spotted_spider_mite": 20,
+        "Tomato__Target_Spot": 20,
+        "Tomato__Tomato_YellowLeaf__Curl_Virus": 20,
+        "Tomato__Tomato_mosaic_virus": 20,
+        "Tomato_healthy": 20
+      },
+      "contact_sheet": "review_contact_sheets/partial_occlusions.jpg"
+    }
+  },
+  "outputs": {
+    "selected_dataset_dir": "selected_dataset",
+    "selected_dataset_manifest": "selected_dataset_manifest.csv",
+    "heuristic_scores": "heuristic_scores.csv",
+    "selected_dataset_summary": "selected_dataset_summary.json",
+    "selected_dataset_zip": "selected_dataset.zip",
+    "review_contact_sheets_dir": "review_contact_sheets",
+    "review_contact_sheets_zip": "review_contact_sheets.zip"
+  },
+  "download_note": "Manifest and summary were reconstructed locally from heuristic_scores.csv and selected_dataset.zip because kaggle kernels output timed out while extracting thousands of individual files."
+}

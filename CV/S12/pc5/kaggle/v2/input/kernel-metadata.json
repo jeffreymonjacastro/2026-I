@@ -9,7 +9,7 @@
   "enable_internet": true,
   "machine_shape": "NvidiaTeslaT4",
   "dataset_sources": [
-    "jeffreyamc/visdrone2019-mot-val"
+    "emmarex/plantdisease"
   ],
   "competition_sources": [],
   "kernel_sources": [],
