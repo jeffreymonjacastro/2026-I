@@ -1,0 +1,11 @@
+{
+  "title": "CV PC5 V3 PlantVillage Segmentation Data",
+  "id": "jeffreyamc/cv-pc5-v3-plantvillage-segmentation-data",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "subtitle": "Curated PlantVillage leaf images for qualitative segmentation analysis",
+  "description": "A curated PlantVillage subset prepared for Computer Vision Practice 5 segmentation analysis. The dataset contains seven visual review categories with 300 images each: healthy leaves, small diseased regions, large diseased regions, simple backgrounds, complex backgrounds, multiple leaves, and partial occlusions. Categories are heuristic and review-oriented, not segmentation ground truth. Metadata files include the selection manifest, heuristic scores, summary, and contact sheets archive."
+}

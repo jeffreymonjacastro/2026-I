@@ -1,4 +1,0 @@
-cuda_available=True
-torch_cuda_version=12.8
-device_count=2
-active_gpu=Tesla T4

@@ -210,3 +210,6 @@ __marimo__/
 # Data
 PlantVillage/
 CV/S12/pc5/kaggle/v3/dataset/
+CV/S12/pc5/kaggle/v4/outputs/prepared_yolo_dataset/
+**/kaggle/**/output/
+**/kaggle/**/outputs/

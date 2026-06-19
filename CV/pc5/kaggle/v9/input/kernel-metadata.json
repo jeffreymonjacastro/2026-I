@@ -1,0 +1,15 @@
+{
+  "id": "jeffreyamc/cv-pc5-v9-multiclass-leaf-disease-yolo-seg",
+  "title": "cv-pc5-v9-multiclass-leaf-disease-yolo-seg",
+  "kernel_type": "notebook",
+  "code_file": "main.ipynb",
+  "language": "python",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": true,
+  "dataset_sources": [
+    "emmarex/plantdisease",
+    "jeffreyamc/cv-pc5-v3-plantvillage-segmentation-holdout"
+  ]
+}

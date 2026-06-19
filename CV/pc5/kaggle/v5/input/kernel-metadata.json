@@ -1,0 +1,18 @@
+{
+  "id": "jeffreyamc/cv-pc5-v5-leaf-sam-yolo-seg",
+  "title": "cv-pc5-v5-leaf-sam-yolo-seg",
+  "code_file": "main.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "emmarex/plantdisease",
+    "jeffreyamc/cv-pc5-v3-plantvillage-segmentation-holdout"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

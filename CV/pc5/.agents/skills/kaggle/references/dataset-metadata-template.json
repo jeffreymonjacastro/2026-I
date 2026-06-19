@@ -1,0 +1,11 @@
+{
+  "title": "dataset-title",
+  "id": "owner/dataset-slug",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "subtitle": "Short dataset subtitle",
+  "description": "Describe the dataset contents, source, intended use, folder structure, and any important limitations."
+}

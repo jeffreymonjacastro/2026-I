@@ -1,0 +1,11 @@
+{
+  "title": "CV PC5 V3 PlantVillage Segmentation Holdout",
+  "id": "jeffreyamc/cv-pc5-v3-plantvillage-segmentation-holdout",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "subtitle": "Curated PlantVillage leaf images for qualitative segmentation analysis",
+  "description": "A curated PlantVillage subset prepared for Computer Vision Practice 5 segmentation analysis. The dataset contains seven visual review categories for qualitative holdout review: 10 images each for healthy leaves, small diseased regions, large diseased regions, simple backgrounds, complex backgrounds, and multiple leaves, plus 7 images for partial occlusions. Categories are heuristic and review-oriented, not segmentation ground truth."
+}
