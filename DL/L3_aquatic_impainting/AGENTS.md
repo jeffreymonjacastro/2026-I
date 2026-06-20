@@ -53,6 +53,7 @@
 - Keep `enable_gpu: true` in `kernel-metadata.json` when using `--accelerator NvidiaTeslaT4`.
 - Kaggle kernel metadata must include the competition dataset input: `"dataset_sources": ["jeffreyamc/lab3-dl-aquatic-impainting-dataset"]`. This dataset contains `train/`, `test/`, `target.csv`, `dino_vq.py`, and `codebook.npy`.
 - Keep Kaggle credentials out of code, notebooks, metadata, and commits. Use Kaggle Secrets or environment variables.
+- For DINOv3/Hugging Face access in notebooks, use environment variables to access the temporal token.
 - First `kaggle kernels push` for a new kernel may run and fail until the user manually creates/enables Kaggle Secrets `KAGGLE_USERNAME` and `KAGGLE_API_TOKEN`; repeated pushes to the same `kernel-metadata.json` `id` should preserve existing secrets, but new kernel IDs need manual secret setup again.
 - If reusing a Kaggle notebook/kernel, preserve its real slug and secrets context first; verify with Kaggle UI or `kaggle kernels list --mine --search <term>` before changing `kernel-metadata.json`.
 - If a Kaggle push fails with `Your kernel title does not resolve to the specified id` or `409 Client Error: Conflict`, check `kernel-metadata.json` `id` against the real Kaggle slug before editing other files.
