@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compact AGENTS.md"
+  short_description: "Create compact agent instruction files"
+  default_prompt: "Use $agents-md-compact to create a compact, evidence-based AGENTS.md for this repository."

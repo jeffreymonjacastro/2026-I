@@ -1,0 +1,16 @@
+{
+  "id": "jeffreyamc/aquatic-inpainting-mae-v1",
+  "title": "Aquatic Inpainting MAE v1",
+  "code_file": "main.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "jeffreyamc/lab3-dl-aquatic-impainting-dataset"
+  ],
+  "competition_sources": [
+    "2026-i-aquatic-inpainting"
+  ]
+}
